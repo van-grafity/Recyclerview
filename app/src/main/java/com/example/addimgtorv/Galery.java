@@ -1,22 +1,25 @@
 package com.example.addimgtorv;
 
+import android.net.Uri;
+import android.widget.CheckBox;
+
 public class Galery {
-    String name;
-    String image;
+    Uri image;
+    CheckBox chcbox;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImage() {
+    public Uri getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Uri image) {
         this.image = image;
+    }
+
+    public CheckBox getChcbox() {
+        return chcbox;
+    }
+
+    public void setChcbox(CheckBox chcbox) {
+        this.chcbox = chcbox;
     }
 }

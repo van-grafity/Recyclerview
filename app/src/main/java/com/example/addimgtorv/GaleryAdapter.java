@@ -1,16 +1,16 @@
 package com.example.addimgtorv;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -18,40 +18,29 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class GaleryAdapter extends RecyclerView.Adapter<GaleryAdapter.GaleryViewHolder> {
+    private static final String TAG = "GaleryAdapter";
     private Context mContext;
     private ArrayList<Galery> items;
-    private OnItemClick onItemClick;
+
 
     public GaleryAdapter(Context mContext, ArrayList<Galery> items) {
         this.mContext = mContext;
         this.items = items;
     }
 
-    public interface OnItemClick {
-        void getPosition(Galery data); //pass any things
-    }
-
-    public void setOnItemClick(OnItemClick onItemClick) {
-        this.onItemClick = onItemClick;
-    }
-
     @NonNull
     @Override
     public GaleryAdapter.GaleryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new GaleryViewHolder(View.inflate(mContext, R.layout.item_galery, parent));
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_galery, parent, false);
+        return new GaleryViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull GaleryAdapter.GaleryViewHolder holder, int position) {
         final Galery data = items.get(position);
-
-        holder.tvNameImages.setText(data.getName());
-        holder.ivImages.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClick.getPosition(data);
-            }
-        });
+        Glide.with(mContext)
+                .load(data.getImage())
+                .into(holder.imgThumb);
     }
 
     @Override
@@ -59,11 +48,28 @@ public class GaleryAdapter extends RecyclerView.Adapter<GaleryAdapter.GaleryView
         return items.size();
     }
 
-    class GaleryViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_images)
-        ImageView ivImages;
-        @BindView(R.id.tv_name_images)
-        TextView tvNameImages;
+//    private void setBitmap(final ImageView iv, final int id) {
+//
+//        new AsyncTask<Void, Void, Bitmap>() {
+//
+//            @Override
+//            protected Bitmap doInBackground(Void... params) {
+//                return MediaStore.Images.Thumbnails.getThumbnail(mContext.getContentResolver(), id, MediaStore.Images.Thumbnails.MICRO_KIND, null);
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Bitmap result) {
+//                super.onPostExecute(result);
+//                iv.setImageBitmap(result);
+//            }
+//        }.execute();
+//    }
+
+    static class GaleryViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.imgThumb)
+        ImageView imgThumb;
+        @BindView(R.id.chkImage)
+        CheckBox chkImage;
 
         public GaleryViewHolder(@NonNull View itemView) {
             super(itemView);
