@@ -4,22 +4,22 @@ import android.net.Uri;
 import android.widget.CheckBox;
 
 public class Galery {
-    Uri image;
-    CheckBox chcbox;
+    String image;
+    String name;
 
-    public Uri getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Uri image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
-    public CheckBox getChcbox() {
-        return chcbox;
+    public String getName() {
+        return name;
     }
 
-    public void setChcbox(CheckBox chcbox) {
-        this.chcbox = chcbox;
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -37,7 +37,7 @@ public class GaleryAdapter extends RecyclerView.Adapter<GaleryAdapter.GaleryView
 
     @Override
     public void onBindViewHolder(@NonNull GaleryAdapter.GaleryViewHolder holder, int position) {
-        final Galery data = items.get(position);
+        Galery data = items.get(position);
         Glide.with(mContext)
                 .load(data.getImage())
                 .into(holder.imgThumb);
@@ -73,7 +73,7 @@ public class GaleryAdapter extends RecyclerView.Adapter<GaleryAdapter.GaleryView
 
         public GaleryViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(itemView);
+            ButterKnife.bind(this,itemView);
         }
 
     }
